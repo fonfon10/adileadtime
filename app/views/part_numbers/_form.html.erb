@@ -1,0 +1,22 @@
+<%= form_with(model: part_number, local: true) do |form| %>
+  <% if part_number.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(part_number.errors.count, "error") %> prohibited this part_number from being saved:</h2>
+
+      <ul>
+      <% part_number.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :partnumber %>
+    <%= form.text_field :partnumber, id: :part_number_partnumber %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
