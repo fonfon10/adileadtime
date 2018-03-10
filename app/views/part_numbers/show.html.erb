@@ -1,9 +1,58 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Partnumber:</strong>
-  <%= @part_number.partnumber %>
-</p>
+<h1> <%= @stocks[0].part_number.partnumber %></h1>
 
-<%= link_to 'Edit', edit_part_number_path(@part_number) %> |
-<%= link_to 'Back', part_numbers_path %>
+<table>
+  <thead>
+    <tr>
+      <th>Partnumber</th>
+      <th>Leadtime</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+
+
+  <tbody>
+
+
+      <tr>
+        <td>Last Change</td>
+        <td><%= @stock_lastchange %></td>
+      </tr>
+
+
+    <% @stocks.each do |stock| %>
+      <tr>
+        <td><%= stock.part_number.partnumber %></td>
+        <td><%= stock.leadtime %></td>
+      </tr>
+    <% end %>
+
+
+      <tr>
+        <td>Average</td>
+        <td><%= @stock_average %></td>
+      </tr>
+      <tr>
+        <td>Maximum</td>
+        <td><%= @stock_max %></td>
+      </tr>
+      <tr>
+        <td>Minimum</td>
+        <td><%= @stock_min %></td>
+      </tr>
+
+
+
+  </tbody>
+
+
+
+
+
+</table>
+
+<br>
+
+<%= link_to 'New Part Number', new_part_number_path %>

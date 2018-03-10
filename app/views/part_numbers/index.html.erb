@@ -6,17 +6,22 @@
   <thead>
     <tr>
       <th>Partnumber</th>
+      <th>Average</th>
+      <th>Current leadtime</th>
+      <th>Last leadtime</th>
+      <th>Change from last time</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @part_numbers.each do |part_number| %>
+    <% @part_numbers.each do |part| %>
       <tr>
-        <td><%= part_number.partnumber %></td>
-        <td><%= link_to 'Show', part_number %></td>
-        <td><%= link_to 'Edit', edit_part_number_path(part_number) %></td>
-        <td><%= link_to 'Destroy', part_number, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= part.partnumber %></td>
+        <td><%= part.stocks.average(:leadtime) %></td>
+        <td><%= part.stocks.order(created_at: :desc).first.leadtime %></td>
+        <td><%= part.stocks.order(created_at: :desc)[1].leadtime %></td>
+        <td><%= part.stocks.order(created_at: :desc)[1].leadtime - part.stocks.order(created_at: :desc)[0].leadtime %></td>
       </tr>
     <% end %>
   </tbody>
