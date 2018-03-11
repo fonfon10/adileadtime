@@ -3,7 +3,11 @@ class PartNumbersController < ApplicationController
 
   def index
 
-    @part_numbers = PartNumber.all
+
+    @q = PartNumber.ransack(params[:q])
+    @part_numbers = @q.result.includes(:stocks)
+
+
     @stocks = Stock.all
   
   end
@@ -60,4 +64,12 @@ class PartNumbersController < ApplicationController
     def part_number_params
       params.require(:part_number).permit(:partnumber)
     end
+
+    def sort_column
+    PartNumber.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 end
